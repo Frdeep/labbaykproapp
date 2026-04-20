@@ -1,5 +1,5 @@
 {
-  "name": "temp_app",
+  "name": "labbayk-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -11,16 +11,38 @@
   "dependencies": {
     "next": "16.2.4",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "framer-motion": "^11",
+    "zustand": "^5",
+    "react-hook-form": "^7",
+    "zod": "^3",
+    "@hookform/resolvers": "^5",
+    "next-intl": "^4",
+    "@supabase/supabase-js": "^2",
+    "@supabase/ssr": "^0",
+    "resend": "^4",
+    "date-fns": "^4",
+    "lucide-react": "^0.500",
+    "clsx": "^2",
+    "tailwind-merge": "^3",
+    "class-variance-authority": "^0.7",
+    "tesseract.js": "^5",
+    "howler": "^2",
+    "moment-hijri": "^3",
+    "@capacitor/core": "^7",
+    "@capacitor/haptics": "^7",
+    "@capacitor/preferences": "^7"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/howler": "^2",
     "eslint": "^9",
     "eslint-config-next": "16.2.4",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "@capacitor/cli": "^7"
   }
 }

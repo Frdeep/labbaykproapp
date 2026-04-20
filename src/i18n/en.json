@@ -1,0 +1,40 @@
+{
+  "app": {
+    "title": "Labbayk",
+    "description": "Your trusted partner for Hajj and Umrah.",
+    "tagline": "Labbayk Allahuma Labbayk"
+  },
+  "nav": {
+    "home": "Home",
+    "offers": "Offers",
+    "guide": "Guide",
+    "chat": "Chat",
+    "profile": "Profile"
+  },
+  "auth": {
+    "login": "Log in",
+    "signup": "Create account",
+    "forgotPassword": "Forgot password",
+    "email": "Email",
+    "password": "Password",
+    "phone": "Phone",
+    "continueWithGoogle": "Continue with Google",
+    "continueWithApple": "Continue with Apple"
+  },
+  "common": {
+    "from": "From",
+    "details": "Details",
+    "book": "Book",
+    "lastSpots": "Last spots",
+    "soldOut": "Sold out",
+    "new": "New",
+    "days": "days",
+    "nights": "nights",
+    "included": "Included",
+    "notIncluded": "Not included",
+    "visaIncluded": "Visa included (European passport)",
+    "visaExtra": "+€150 for non-European passport",
+    "breakfastIncluded": "Breakfast included",
+    "noMeals": "No meals"
+  }
+}

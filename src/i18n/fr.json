@@ -1,0 +1,40 @@
+{
+  "app": {
+    "title": "Labbayk",
+    "description": "Votre partenaire de confiance pour le Hajj et la Omra.",
+    "tagline": "Labbayk Allahuma Labbayk"
+  },
+  "nav": {
+    "home": "Accueil",
+    "offers": "Offres",
+    "guide": "Guide",
+    "chat": "Chat",
+    "profile": "Profil"
+  },
+  "auth": {
+    "login": "Se connecter",
+    "signup": "Créer un compte",
+    "forgotPassword": "Mot de passe oublié",
+    "email": "Email",
+    "password": "Mot de passe",
+    "phone": "Téléphone",
+    "continueWithGoogle": "Continuer avec Google",
+    "continueWithApple": "Continuer avec Apple"
+  },
+  "common": {
+    "from": "À partir de",
+    "details": "Détails",
+    "book": "Réserver",
+    "lastSpots": "Dernières places",
+    "soldOut": "Complet",
+    "new": "Nouveau",
+    "days": "jours",
+    "nights": "nuits",
+    "included": "Inclus",
+    "notIncluded": "Non inclus",
+    "visaIncluded": "Visa inclus (passeport européen)",
+    "visaExtra": "+150€ pour passeport non-européen",
+    "breakfastIncluded": "Petit-déjeuner inclus",
+    "noMeals": "Sans repas"
+  }
+}
