@@ -2,7 +2,7 @@
 
 import { createClient } from '@/lib/supabase-server';
 import { revalidatePath } from 'next/cache';
-import type { RoomType, CallbackSlot, TravelerInfo } from '@/types/booking';
+import type { RoomType, TravelerInfo } from '@/types/booking';
 
 interface CreateBookingInput {
   formule_id: string;
@@ -51,7 +51,7 @@ export async function createBooking(input: CreateBookingInput) {
 
     revalidatePath('/mon-voyage');
     
-    return { success: true, booking: data };
+    return { success: true, bookingId: data.id, booking: data };
   } catch (err) {
     console.error('Create booking failed:', err);
     return { success: false, error: 'Serveur indisponible.' };

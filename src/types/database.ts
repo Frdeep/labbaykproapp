@@ -3,5 +3,5 @@
 // For now, export manual types used across the app.
 
 export type { Formule, FormuleCategory, FormuleStatus, Airline, RouteDestination } from './formule';
-export type { Booking, BookingStatus, RoomType, CallbackSlot, TravelerInfo } from './booking';
+export type { Booking, BookingStatus, RoomType, TravelerInfo } from './booking';
 export type { UserDocument, DocType, ValidationStatus } from './document';

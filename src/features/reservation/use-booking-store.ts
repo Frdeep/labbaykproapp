@@ -7,6 +7,7 @@ interface BookingStore {
   roomType: RoomType;
   travelers: TravelerInfo[];
   travelersCount: number;
+  documentsUploaded: boolean;
   appointmentDate: string | null;
 
   userNotes: string;
@@ -16,6 +17,7 @@ interface BookingStore {
   setRoomType: (type: RoomType) => void;
   setTravelersCount: (count: number) => void;
   updateTraveler: (index: number, data: Partial<TravelerInfo>) => void;
+  setDocumentsUploaded: (uploaded: boolean) => void;
   setAppointmentDate: (date: string | null) => void;
 
   setUserNotes: (notes: string) => void;
@@ -38,6 +40,7 @@ export const useBookingStore = create<BookingStore>((set) => ({
   roomType: '4pers',
   travelers: [{ ...defaultTraveler }],
   travelersCount: 1,
+  documentsUploaded: false,
   appointmentDate: null,
 
   userNotes: '',
@@ -57,10 +60,11 @@ export const useBookingStore = create<BookingStore>((set) => ({
       travelers[index] = { ...travelers[index], ...data };
       return { travelers };
     }),
+  setDocumentsUploaded: (uploaded) => set({ documentsUploaded: uploaded }),
   setAppointmentDate: (date) => set({ appointmentDate: date }),
 
   setUserNotes: (notes) => set({ userNotes: notes }),
-  nextStep: () => set((s) => ({ step: Math.min(s.step + 1, 3) })),
+  nextStep: () => set((s) => ({ step: Math.min(s.step + 1, 4) })),
   prevStep: () => set((s) => ({ step: Math.max(s.step - 1, 0) })),
   reset: () =>
     set({
@@ -68,6 +72,7 @@ export const useBookingStore = create<BookingStore>((set) => ({
       roomType: '4pers',
       travelers: [{ ...defaultTraveler }],
       travelersCount: 1,
+      documentsUploaded: false,
       appointmentDate: null,
 
       userNotes: '',

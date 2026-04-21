@@ -26,12 +26,12 @@ const fadeUp = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.2, 0.8, 0.2, 1] } },
 };
 
-// Mock featured destinations
+// Featured destinations with real imagery
 const featuredOffers = [
-  { id: '1', title: 'Omra Vacances Toussaint', price: '1 690€', image: '' },
-  { id: '2', title: 'Omra Début Ramadan', price: '2 190€', image: '' },
-  { id: '3', title: 'Hajj 2025 Premium', price: 'Sur devis', image: '' },
-  { id: '4', title: 'Omra Fin d\'année', price: '1 890€', image: '' },
+  { id: '1', title: 'Omra Vacances Toussaint', price: '1 690€', image: '/images/omra-toussaint.jpg' },
+  { id: '2', title: 'Omra Début Ramadan', price: '2 190€', image: '/images/omra-ramadan.jpg' },
+  { id: '3', title: 'Hajj 2025 Premium', price: 'Sur devis', image: '/images/hajj-premium.jpg' },
+  { id: '4', title: 'Omra Fin d\'année', price: '1 890€', image: '/images/omra-fin-annee.jpg' },
 ];
 
 export default function HomePage() {
@@ -142,14 +142,14 @@ export default function HomePage() {
               </Link>
             </div>
             <div className="flex gap-4 overflow-x-auto pb-4 -mx-5 px-5 lg:mx-0 lg:px-0 lg:overflow-x-visible lg:grid lg:grid-cols-2 snap-x snap-mandatory scrollbar-none">
-              {featuredOffers.slice(0, 2).map((offer) => (
+              {featuredOffers.map((offer) => (
                 <Link key={offer.id} href={`/offres/${offer.id}`} className="snap-start lg:w-full shrink-0">
                   <DestinationCard
-                    imageSrc={offer.image || `https://placehold.co/320x400/0A3B2B/C9A961?text=${encodeURIComponent(offer.title.split(' ')[0])}`}
+                    imageSrc={offer.image}
                     title={offer.title}
                     pricePrefix="À partir de"
                     price={offer.price}
-                    className="w-[280px] lg:w-full"
+                    className="w-[260px] lg:w-full"
                   />
                 </Link>
               ))}

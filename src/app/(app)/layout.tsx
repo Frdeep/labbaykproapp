@@ -4,6 +4,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { BottomTabBar, type TabItem } from '@/components/ui/bottom-tab-bar';
 import { Home, Tag, BookOpen, MessageCircle, UserCircle } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { NotificationBanner } from '@/components/common/notification-banner';
 
 const tabs: TabItem[] = [
   { id: '/', icon: <Home className="w-6 h-6" strokeWidth={1.5} />, activeIcon: <Home className="w-6 h-6" strokeWidth={2} />, label: 'Accueil' },
@@ -47,6 +48,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         activeId={activeTab}
         onChange={(id) => router.push(id)}
       />
+
+      {/* Non-intrusive notification opt-in */}
+      <NotificationBanner />
     </div>
   );
 }
