@@ -7,9 +7,9 @@ import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/common/logo';
 
 const INTRO_IMAGES = [
-  '/images/intro-1.jpg',
-  '/images/intro-2.jpg',
-  '/images/intro-3.png',
+  '/images/hajj-premium.jpg',
+  '/images/omra-ramadan.jpg',
+  '/images/omra-fin-annee.jpg',
 ];
 
 const AUTOPLAY_INTERVAL = 5000; // 5 seconds per slide
