@@ -17,7 +17,7 @@ export function ActionSquare({ icon, label, className, ...props }: ActionSquareP
       transition={{ type: "spring", stiffness: 400, damping: 17 }}
       className={cn(
         "flex flex-col items-center justify-center gap-2",
-        "w-full aspect-square bg-emerald-900 rounded-[28px]",
+        "w-full aspect-square bg-beige-900 rounded-[28px]",
         "shadow-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus",
         "group",
         className

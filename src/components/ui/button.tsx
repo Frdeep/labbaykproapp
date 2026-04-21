@@ -9,8 +9,9 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: "bg-ink-900 text-ivory-50 hover:bg-ink-900/90 shadow-card",
-        emerald: "bg-emerald-900 text-gold-300 hover:bg-emerald-800 shadow-float",
+        beige: "bg-beige-900 text-gold-300 hover:bg-beige-800 shadow-float",
         gold: "bg-grad-gold text-white shadow-float",
+        white: "bg-white text-ink-900 shadow-float hover:bg-white/90",
         secondary: "bg-ivory-200 text-ink-900 hover:bg-ivory-200/80",
         ghost: "hover:bg-ink-100/50 hover:text-ink-900",
         "ghost-gold": "text-gold-600 hover:bg-gold-100/20",

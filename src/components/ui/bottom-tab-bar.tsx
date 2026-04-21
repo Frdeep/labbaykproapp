@@ -40,7 +40,7 @@ export function BottomTabBar({ tabs, activeId, onChange, className }: BottomTabB
           >
             <div className={cn(
               "transition-colors duration-300",
-              isActive ? "text-emerald-900" : "text-ink-300"
+              isActive ? "text-beige-900" : "text-ink-300"
             )}>
               {isActive ? tab.activeIcon : tab.icon}
             </div>

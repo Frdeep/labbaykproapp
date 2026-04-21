@@ -29,6 +29,12 @@ export const metadata: Metadata = {
   description: 'Votre partenaire de confiance pour le Hajj et la Omra.',
   keywords: ['Hajj', 'Omra', 'pèlerinage', 'La Mecque', 'Médine', 'Labbayk'],
   authors: [{ name: 'Labbayk Voyages' }],
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'Labbayk',
+  },
 };
 
 export const viewport: Viewport = {

@@ -42,7 +42,7 @@ export default function UIKitPage() {
         <section>
           <h2 className="text-title mb-4">Shadcn Custom Buttons</h2>
           <div className="flex flex-wrap gap-4">
-            <Button variant="emerald" shape="bubble">Primary Emerald</Button>
+            <Button variant="beige" shape="bubble">Primary Beige</Button>
             <Button variant="gold" shape="bubble">Primary Gold</Button>
             <Button variant="default">Default Ink</Button>
             <Button variant="secondary" shape="pill">Secondary Pill</Button>
