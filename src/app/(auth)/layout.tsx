@@ -30,7 +30,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         </div>
 
         {/* Authentification Glassmorphic Card (Mobile) / Clean Plain Form (Desktop) */}
-        <div className="w-full bg-white/95 backdrop-blur-xl lg:bg-transparent rounded-t-[32px] lg:rounded-none px-6 pt-10 pb-8 sm:px-12 lg:px-16 xl:px-24 flex flex-col min-h-[70dvh] lg:min-h-0 shadow-[-10px_0_30px_rgba(0,0,0,0.05)] lg:shadow-none">
+        <div className="w-full bg-white/95 backdrop-blur-xl lg:bg-transparent rounded-t-[32px] lg:rounded-none px-6 pt-10 pb-8 sm:px-12 lg:px-16 xl:px-24 flex flex-col mt-auto lg:mt-0 shadow-[-10px_0_30px_rgba(0,0,0,0.05)] lg:shadow-none">
           
           {/* Desktop specific Logo, inside the right column */}
           <div className="hidden lg:flex justify-center mb-12">

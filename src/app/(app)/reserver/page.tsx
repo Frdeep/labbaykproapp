@@ -109,7 +109,7 @@ function ReserverContent() {
 
       {/* Bottom CTA */}
       {store.step < 4 && (
-        <div className="fixed bottom-0 left-0 right-0 z-50 bg-ivory-50/90 backdrop-blur-xl border-t border-ink-100/30 px-5 py-4 safe-bottom lg:pl-[240px]">
+        <div className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-t from-ivory-50/95 via-ivory-50/90 to-transparent pt-8 pb-4 px-5 safe-bottom lg:pl-[240px]">
           {errorMsg && <p className="text-state-error text-micro text-center mb-2">{errorMsg}</p>}
           <div className="lg:max-w-2xl lg:mx-auto">
             <Button 

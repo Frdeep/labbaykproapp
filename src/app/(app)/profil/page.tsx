@@ -13,6 +13,7 @@ import Link from 'next/link';
 export default function ProfilPage() {
   const [user, setUser] = useState<any>(null);
   const [profile, setProfile] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function load() {
@@ -23,9 +24,28 @@ export default function ProfilPage() {
         const { data } = await supabase.from('profiles').select('*').eq('id', user.id).single();
         setProfile(data);
       }
+      setLoading(false);
     }
     load();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="flex flex-col">
+        <ScreenHeader title="Mon Profil" />
+        <div className="px-5 py-6 flex flex-col gap-6">
+          <div className="flex flex-col items-center gap-3 animate-pulse">
+            <div className="w-24 h-24 rounded-full bg-ink-100" />
+            <div className="h-6 w-32 bg-ink-100 rounded-md" />
+            <div className="h-4 w-48 bg-ink-100 rounded-md" />
+          </div>
+          <div className="h-32 bg-white rounded-2xl animate-pulse shadow-card" />
+          <div className="h-16 bg-white rounded-2xl animate-pulse shadow-card" />
+          <div className="h-32 bg-white rounded-2xl animate-pulse shadow-card" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col">

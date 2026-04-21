@@ -1,6 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
+import { useState, useEffect } from 'react';
 
 type HijriDateProps = {
   className?: string;
@@ -19,6 +20,13 @@ export function HijriDate({ className }: HijriDateProps) {
     'Jumada al-Ula', 'Jumada ath-Thaniyah', 'Rajab', "Sha'ban",
     'Ramadan', 'Shawwal', "Dhul-Qi'dah", 'Dhul-Hijjah',
   ];
+
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => setIsMounted(true), []);
+
+  if (!isMounted) {
+    return <time className={cn('text-caption text-ink-500', className)}>&nbsp;</time>;
+  }
 
   // Approximate Hijri date calculation
   const now = new Date();

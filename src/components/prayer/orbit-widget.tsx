@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Sun, Moon, Sunrise, Sunset, CloudSun } from 'lucide-react';
 
@@ -33,9 +33,13 @@ interface OrbitWidgetProps {
 }
 
 export function OrbitWidget({ prayers = defaultPrayers, activeIndex, className }: OrbitWidgetProps) {
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => setIsMounted(true), []);
+
   // Auto-detect active prayer based on current time
   const currentActive = useMemo(() => {
     if (activeIndex !== undefined) return activeIndex;
+    if (!isMounted) return 0; // Prevent React hydration error
     const now = new Date();
     const currentMinutes = now.getHours() * 60 + now.getMinutes();
 
