@@ -25,6 +25,8 @@ export function FormuleDetailClient({ formule }: FormuleDetailClientProps) {
   const router = useRouter();
   const f = formule;
 
+  const hasVoco = f.hotel_makkah?.toLowerCase().includes('voco') || f.hotel_medina?.toLowerCase().includes('voco');
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -85,6 +87,25 @@ export function FormuleDetailClient({ formule }: FormuleDetailClientProps) {
               <p className="text-body font-semibold text-ink-900 mt-1">{f.hotel_medina}</p>
             </div>
           </div>
+          {hasVoco && (
+            <div className="mt-4">
+              <h3 className="text-[11px] font-bold tracking-wide text-ink-300 uppercase mb-2">Galerie — Hôtel Partenaire Voco</h3>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="h-24 rounded-lg overflow-hidden bg-ink-50">
+                  <img src="/images/hotels/voco/voco-1.jpg" alt="Voco Reception" className="w-full h-full object-cover" />
+                </div>
+                <div className="h-24 rounded-lg overflow-hidden bg-ink-50">
+                  <img src="/images/hotels/voco/voco-2.jpg" alt="Voco Breakfast" className="w-full h-full object-cover" />
+                </div>
+                <div className="h-24 rounded-lg overflow-hidden bg-ink-50">
+                  <img src="/images/hotels/voco/voco-3.jpg" alt="Voco Room" className="w-full h-full object-cover" />
+                </div>
+                <div className="h-24 rounded-lg overflow-hidden bg-ink-50">
+                  <img src="/images/hotels/voco/voco-4.jpg" alt="Voco Bathroom" className="w-full h-full object-cover" />
+                </div>
+              </div>
+            </div>
+          )}
         </section>
 
         {/* Inclusions */}
