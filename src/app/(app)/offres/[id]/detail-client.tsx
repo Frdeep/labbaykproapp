@@ -26,6 +26,7 @@ export function FormuleDetailClient({ formule }: FormuleDetailClientProps) {
   const f = formule;
 
   const hasVoco = f.hotel_makkah?.toLowerCase().includes('voco') || f.hotel_medina?.toLowerCase().includes('voco');
+  const hasAssafaa = f.hotel_makkah?.toLowerCase().includes('assafaa') || f.hotel_medina?.toLowerCase().includes('assafaa');
 
   return (
     <motion.div
@@ -102,6 +103,22 @@ export function FormuleDetailClient({ formule }: FormuleDetailClientProps) {
                 </div>
                 <div className="h-24 rounded-lg overflow-hidden bg-ink-50">
                   <img src="/images/hotels/voco/voco-4.jpg" alt="Voco Bathroom" className="w-full h-full object-cover" />
+                </div>
+              </div>
+            </div>
+          )}
+          {hasAssafaa && (
+            <div className="mt-4">
+              <h3 className="text-[11px] font-bold tracking-wide text-ink-300 uppercase mb-2">Galerie — Hôtel Assafaa</h3>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="h-24 rounded-lg overflow-hidden bg-ink-50">
+                  <img src="/images/hotels/assafaa/assafaa-1.jpg" alt="Assafaa Room" className="w-full h-full object-cover" />
+                </div>
+                <div className="h-24 rounded-lg overflow-hidden bg-ink-50">
+                  <img src="/images/hotels/assafaa/assafaa-2.jpg" alt="Assafaa Restaurant" className="w-full h-full object-cover" />
+                </div>
+                <div className="h-24 col-span-2 rounded-lg overflow-hidden bg-ink-50">
+                  <img src="/images/hotels/assafaa/assafaa-3.jpg" alt="Assafaa Exterior" className="w-full h-full object-cover" />
                 </div>
               </div>
             </div>
