@@ -9,7 +9,8 @@ interface CreateBookingInput {
   room_type: RoomType;
   travelers_count: number;
   travelers: TravelerInfo[];
-  preferred_callback_slot?: CallbackSlot | null;
+  appointment_date?: string | null;
+
   user_notes?: string;
 }
 
@@ -35,7 +36,8 @@ export async function createBooking(input: CreateBookingInput) {
         room_type: input.room_type,
         travelers_count: input.travelers_count,
         travelers: input.travelers,
-        preferred_callback_slot: input.preferred_callback_slot || null,
+        appointment_date: input.appointment_date || null,
+
         user_notes: input.user_notes,
         status: 'pending_contact'
       })

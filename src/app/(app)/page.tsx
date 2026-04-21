@@ -60,90 +60,102 @@ export default function HomePage() {
       />
 
       {/* Content */}
-      <div className="px-5 flex flex-col gap-8 pb-8">
-        {/* Greeting */}
-        <motion.div variants={fadeUp} className="space-y-1 mt-2">
-          <h1 className="text-display-m text-ink-900">Assalamu Alaykum 👋</h1>
-          <HijriDate className="text-body text-ink-400" />
-        </motion.div>
+      <div className="px-5 pb-8 max-w-7xl mx-auto lg:pt-8 w-full flex flex-col lg:grid lg:grid-cols-12 lg:gap-8 gap-8">
+        
+        {/* Left Column - Greetings & Core Infos */}
+        <div className="flex flex-col gap-8 lg:col-span-7 xl:col-span-8">
+          {/* Greeting */}
+          <motion.div variants={fadeUp} className="space-y-1 mt-2">
+            <h1 className="text-display-m text-ink-900">Assalamu Alaykum 👋</h1>
+            <HijriDate className="text-body text-ink-400" />
+          </motion.div>
 
-        {/* Orbit Prayer Widget */}
-        <motion.div variants={fadeUp}>
-          <OrbitWidget />
-        </motion.div>
+          {/* Widgets Grid on Desktop */}
+          <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8">
+            {/* Orbit Prayer Widget */}
+            <motion.div variants={fadeUp} className="flex-1">
+              <OrbitWidget />
+            </motion.div>
 
-        {/* Prayer time row */}
-        <motion.div variants={fadeUp}>
-          <PrayerTimeRow />
-        </motion.div>
+            <div className="flex flex-col gap-8 flex-1">
+              {/* Prayer time row */}
+              <motion.div variants={fadeUp}>
+                <PrayerTimeRow />
+              </motion.div>
 
-        {/* Quick Actions */}
-        <motion.div variants={fadeUp}>
-          <h2 className="text-caption text-ink-400 mb-3">ACCÈS RAPIDE</h2>
-          <div className="grid grid-cols-4 gap-3">
-            <Link href="/offres">
-              <ActionSquare
-                icon={<Plane className="w-6 h-6" />}
-                label="Réserver"
-              />
-            </Link>
-            <Link href="/guide">
-              <ActionSquare
-                icon={<BookOpenCheck className="w-6 h-6" />}
-                label="Guide"
-              />
-            </Link>
-            <Link href="/coran">
-              <ActionSquare
-                icon={<BookOpen className="w-6 h-6" />}
-                label="Coran"
-              />
-            </Link>
-            <Link href="/chat">
-              <ActionSquare
-                icon={<MessageCircle className="w-6 h-6" />}
-                label="Chat IA"
-              />
-            </Link>
+              {/* Trust stats */}
+              <motion.div variants={fadeUp} className="grid grid-cols-3 gap-3">
+                {[
+                  { label: 'Ans d\'expérience', value: '10+' },
+                  { label: 'Pèlerins accompagnés', value: '1 000+' },
+                  { label: 'Avis Google', value: '4.9★' },
+                ].map((stat) => (
+                  <div key={stat.label} className="flex flex-col items-center justify-center gap-1 rounded-2xl bg-white p-4 shadow-card hover:shadow-float transition-shadow h-full">
+                    <span className="text-h1 text-beige-900">{stat.value}</span>
+                    <span className="text-[10px] text-ink-400 text-center font-medium leading-tight">{stat.label}</span>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
           </div>
-        </motion.div>
+        </div>
 
-        {/* Featured offers carousel */}
-        <motion.div variants={fadeUp}>
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="text-caption text-ink-400">OFFRES DU MOMENT</h2>
-            <Link href="/offres" className="text-micro text-gold-600 hover:text-gold-700 transition-colors">
-              Tout voir →
-            </Link>
-          </div>
-          <div className="flex gap-4 overflow-x-auto pb-2 -mx-5 px-5 snap-x snap-mandatory scrollbar-none">
-            {featuredOffers.map((offer) => (
-              <Link key={offer.id} href={`/offres/${offer.id}`}>
-                <DestinationCard
-                  imageSrc={offer.image || `https://placehold.co/320x400/0A3B2B/C9A961?text=${encodeURIComponent(offer.title.split(' ')[0])}`}
-                  title={offer.title}
-                  pricePrefix="À partir de"
-                  price={offer.price}
-                  className="snap-start"
+        {/* Right Column - Actions & Offers */}
+        <div className="flex flex-col gap-8 lg:col-span-5 xl:col-span-4">
+          {/* Quick Actions */}
+          <motion.div variants={fadeUp}>
+            <h2 className="text-caption text-ink-400 mb-3">ACCÈS RAPIDE</h2>
+            <div className="grid grid-cols-4 lg:grid-cols-2 gap-3">
+              <Link href="/offres">
+                <ActionSquare
+                  icon={<Plane className="w-6 h-6" />}
+                  label="Réserver"
                 />
               </Link>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Trust stats */}
-        <motion.div variants={fadeUp} className="grid grid-cols-3 gap-3">
-          {[
-            { label: 'Ans d\'expérience', value: '10+' },
-            { label: 'Pèlerins accompagnés', value: '1 000+' },
-            { label: 'Avis Google', value: '4.9★' },
-          ].map((stat) => (
-            <div key={stat.label} className="flex flex-col items-center gap-1 rounded-2xl bg-white/80 p-4 shadow-card">
-              <span className="text-h1 text-beige-900">{stat.value}</span>
-              <span className="text-[10px] text-ink-400 text-center font-medium">{stat.label}</span>
+              <Link href="/guide">
+                <ActionSquare
+                  icon={<BookOpenCheck className="w-6 h-6" />}
+                  label="Guide"
+                />
+              </Link>
+              <Link href="/coran">
+                <ActionSquare
+                  icon={<BookOpen className="w-6 h-6" />}
+                  label="Coran"
+                />
+              </Link>
+              <Link href="/chat">
+                <ActionSquare
+                  icon={<MessageCircle className="w-6 h-6" />}
+                  label="Chat IA"
+                />
+              </Link>
             </div>
-          ))}
-        </motion.div>
+          </motion.div>
+
+          {/* Featured offers carousel */}
+          <motion.div variants={fadeUp} className="lg:mt-4">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-caption text-ink-400">OFFRES DU MOMENT</h2>
+              <Link href="/offres" className="text-micro text-gold-600 hover:text-gold-700 transition-colors">
+                Tout voir →
+              </Link>
+            </div>
+            <div className="flex gap-4 overflow-x-auto pb-4 -mx-5 px-5 lg:mx-0 lg:px-0 lg:overflow-x-visible lg:grid lg:grid-cols-2 snap-x snap-mandatory scrollbar-none">
+              {featuredOffers.slice(0, 2).map((offer) => (
+                <Link key={offer.id} href={`/offres/${offer.id}`} className="snap-start lg:w-full shrink-0">
+                  <DestinationCard
+                    imageSrc={offer.image || `https://placehold.co/320x400/0A3B2B/C9A961?text=${encodeURIComponent(offer.title.split(' ')[0])}`}
+                    title={offer.title}
+                    pricePrefix="À partir de"
+                    price={offer.price}
+                    className="w-[280px] lg:w-full"
+                  />
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+        </div>
       </div>
     </motion.div>
   );

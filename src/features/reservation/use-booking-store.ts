@@ -7,7 +7,8 @@ interface BookingStore {
   roomType: RoomType;
   travelers: TravelerInfo[];
   travelersCount: number;
-  callbackSlot: 'morning' | 'afternoon' | 'evening';
+  appointmentDate: string | null;
+
   userNotes: string;
   step: number;
   // Actions
@@ -15,7 +16,8 @@ interface BookingStore {
   setRoomType: (type: RoomType) => void;
   setTravelersCount: (count: number) => void;
   updateTraveler: (index: number, data: Partial<TravelerInfo>) => void;
-  setCallbackSlot: (slot: 'morning' | 'afternoon' | 'evening') => void;
+  setAppointmentDate: (date: string | null) => void;
+
   setUserNotes: (notes: string) => void;
   nextStep: () => void;
   prevStep: () => void;
@@ -36,7 +38,8 @@ export const useBookingStore = create<BookingStore>((set) => ({
   roomType: '4pers',
   travelers: [{ ...defaultTraveler }],
   travelersCount: 1,
-  callbackSlot: 'afternoon',
+  appointmentDate: null,
+
   userNotes: '',
   step: 0,
 
@@ -54,7 +57,8 @@ export const useBookingStore = create<BookingStore>((set) => ({
       travelers[index] = { ...travelers[index], ...data };
       return { travelers };
     }),
-  setCallbackSlot: (slot) => set({ callbackSlot: slot }),
+  setAppointmentDate: (date) => set({ appointmentDate: date }),
+
   setUserNotes: (notes) => set({ userNotes: notes }),
   nextStep: () => set((s) => ({ step: Math.min(s.step + 1, 3) })),
   prevStep: () => set((s) => ({ step: Math.max(s.step - 1, 0) })),
@@ -64,7 +68,8 @@ export const useBookingStore = create<BookingStore>((set) => ({
       roomType: '4pers',
       travelers: [{ ...defaultTraveler }],
       travelersCount: 1,
-      callbackSlot: 'afternoon',
+      appointmentDate: null,
+
       userNotes: '',
       step: 0,
     }),

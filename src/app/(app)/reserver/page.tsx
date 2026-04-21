@@ -100,50 +100,26 @@ function ReserverContent() {
                   room_type: store.roomType,
                   travelers_count: store.travelersCount,
                   travelers: store.travelers.slice(0, store.travelersCount),
-                  preferred_callback_slot: store.callbackSlot,
+                  appointment_date: store.appointmentDate,
                   user_notes: store.userNotes,
+
                 });
                 
                 if (res.success && res.bookingId) {
-                  // Appel à Stripe pour payer l'acompte (500€ d'acompte par défaut ou 30%)
-                  try {
-                    const stripeRes = await fetch('/api/stripe/checkout', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({
-                        bookingId: res.bookingId,
-                        amount: 500 * store.travelersCount, // 500€ par voyageur
-                        customerEmail: '', // Idéalement l'email du user connecté
-                      }),
-                    });
-                    const stripeData = await stripeRes.json();
-                    if (stripeData.url) {
-                      if (stripeData.url.startsWith('/')) {
-                        // Bypass test mode without keys
-                        setIsSubmitting(false);
-                        store.nextStep();
-                      } else {
-                        // Redirection vers Stripe Checkout
-                        window.location.href = stripeData.url;
-                      }
-                    } else {
-                      setIsSubmitting(false);
-                      setErrorMsg('Erreur lors de la redirection du paiement.');
-                    }
-                  } catch (e) {
-                     setIsSubmitting(false);
-                     setErrorMsg('Erreur de connexion sécurisée.');
-                  }
+                  setIsSubmitting(false);
+                  store.nextStep();
                 } else {
                   setIsSubmitting(false);
                   setErrorMsg(res.error || 'Erreur inconnue.');
                 }
+
               } else {
                 store.nextStep();
               }
             }}
           >
-            {isSubmitting ? 'Redirection...' : store.step === 2 ? 'Payer l\'acompte (500€/pers)' : 'Continuer'}
+            {isSubmitting ? 'Validation...' : store.step === 2 ? 'Confirmer le Rendez-vous' : 'Continuer'}
+
           </Button>
         </div>
       )}
@@ -237,7 +213,8 @@ function StepTravelers() {
 }
 
 function StepRecap() {
-  const { roomType, travelersCount, travelers, callbackSlot, setCallbackSlot, userNotes, setUserNotes } = useBookingStore();
+  const { roomType, travelersCount, travelers, appointmentDate, setAppointmentDate, userNotes, setUserNotes } = useBookingStore();
+
 
   return (
     <div className="space-y-6">
@@ -251,23 +228,19 @@ function StepRecap() {
       </div>
 
       <section>
-        <h3 className="text-caption text-ink-400 mb-3">CRÉNEAU DE RAPPEL</h3>
-        <div className="flex gap-2">
-          {(['morning', 'afternoon', 'evening'] as const).map((slot) => (
-            <button
-              key={slot}
-              onClick={() => setCallbackSlot(slot)}
-              className={`flex-1 py-3 rounded-xl text-[13px] font-medium transition-all ${
-                callbackSlot === slot
-                  ? 'bg-beige-900 text-gold-300'
-                  : 'bg-white border border-ink-100 text-ink-500'
-              }`}
-            >
-              {slot === 'morning' ? 'Matin' : slot === 'afternoon' ? 'Après-midi' : 'Soir'}
-            </button>
-          ))}
-        </div>
+        <h3 className="text-caption text-ink-400 mb-3">DATE ET HEURE DU RENDEZ-VOUS</h3>
+        <p className="text-micro text-ink-400 mb-4">
+          Un rendez-vous en agence (ou visio) est nécessaire pour valider les pièces justificatives et finaliser le paiement.
+        </p>
+        <Input
+          type="datetime-local"
+          value={appointmentDate || ''}
+          onChange={(e) => setAppointmentDate(e.target.value)}
+          min={new Date().toISOString().slice(0, 16)}
+          required
+        />
       </section>
+
 
       <section>
         <h3 className="text-caption text-ink-400 mb-3">NOTES (OPTIONNEL)</h3>

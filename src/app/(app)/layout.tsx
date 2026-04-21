@@ -26,7 +26,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-dvh bg-ivory-50 flex flex-col">
       {/* Main content */}
-      <main className="flex-1 pb-[88px]">
+      <main className="flex-1 pb-[88px] lg:pb-0 lg:pl-[240px]">
         <AnimatePresence mode="wait">
           <motion.div
             key={pathname}
@@ -34,6 +34,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
+            className="min-h-dvh h-full"
           >
             {children}
           </motion.div>

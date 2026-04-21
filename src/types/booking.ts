@@ -5,7 +5,8 @@ export type BookingStatus = 'draft' | 'pending_contact' | 'confirmed' | 'complet
 
 export type RoomType = '2pers' | '3pers' | '4pers' | '6pers';
 
-export type CallbackSlot = 'morning' | 'afternoon' | 'evening';
+export type CallbackSlot = 'morning' | 'afternoon' | 'evening'; // DEPRECATED: Kept for migration.
+
 
 export interface TravelerInfo {
   first_name: string;
@@ -26,7 +27,8 @@ export interface Booking {
   travelers_count: number;
   travelers: TravelerInfo[];
   total_amount?: number | null;
-  preferred_callback_slot?: CallbackSlot | null;
+  appointment_date?: string | null;
+
   internal_notes?: string | null;
   user_notes?: string | null;
   contacted_at?: string | null;
