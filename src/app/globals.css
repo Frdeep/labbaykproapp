@@ -34,6 +34,10 @@
   --color-ink-200:   #C9CFCB;
   --color-ink-100:   #E4E7E5;
 
+  --color-emerald-900: #0A3B2B;
+  --color-emerald-800: #11533D;
+  --color-emerald-700: #1B7154;
+
   --color-night-900: #070708;
   --color-night-800: #0E0E10;
   --color-night-700: #1A1A1D;
@@ -54,6 +58,7 @@
   --radius-lg:   16px;
   --radius-xl:   20px;
   --radius-2xl:  28px;
+  --radius-3xl:  32px;
   --radius-pill: 9999px;
 
   /* Shadows */
