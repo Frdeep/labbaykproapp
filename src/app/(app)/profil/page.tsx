@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { User, Mail, Phone, Globe, LogOut, ChevronRight, HelpCircle, FileText, Shield } from 'lucide-react';
 import { ScreenHeader } from '@/components/layout/screen-header';
 import { Button } from '@/components/ui/button';

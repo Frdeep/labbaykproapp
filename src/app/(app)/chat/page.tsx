@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { Send, Sparkles, RotateCcw } from 'lucide-react';
 import { ScreenHeader } from '@/components/layout/screen-header';
 import { useChatStore, type ChatMessage } from '@/features/chat/use-chat-store';

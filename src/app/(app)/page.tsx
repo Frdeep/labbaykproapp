@@ -1,7 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Bell, BookOpen, MessageCircle, Plane, BookOpenCheck } from 'lucide-react';
+import { motion } from 'motion/react';
+import { Bell, BookOpen, MessageCircle, Plane, BookOpenCheck, Sparkles } from 'lucide-react';
 import { ScreenHeader } from '@/components/layout/screen-header';
 import { ActionSquare } from '@/components/ui/action-square';
 import { DestinationCard } from '@/components/ui/destination-card';
@@ -17,13 +17,13 @@ const stagger = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.08 },
+    transition: { staggerChildren: 0.08, delayChildren: 0.1 },
   },
 };
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.2, 0.8, 0.2, 1] } },
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.2, 0.8, 0.2, 1] as const } },
 };
 
 // Featured destinations with real imagery
@@ -32,6 +32,12 @@ const featuredOffers = [
   { id: '2', title: 'Omra Début Ramadan', price: '2 190€', image: '/images/omra-ramadan.jpg' },
   { id: '3', title: 'Hajj 2025 Premium', price: 'Sur devis', image: '/images/hajj-premium.jpg' },
   { id: '4', title: 'Omra Fin d\'année', price: '1 890€', image: '/images/omra-fin-annee.jpg' },
+];
+
+const trustStats = [
+  { label: "Ans d'expérience", value: '10+', accent: false },
+  { label: 'Pèlerins accompagnés', value: '1 000+', accent: true },
+  { label: 'Avis Google', value: '4.9★', accent: false },
 ];
 
 export default function HomePage() {
@@ -52,9 +58,9 @@ export default function HomePage() {
         }
         title={<Logo size="sm" />}
         rightAction={
-          <button className="relative w-10 h-10 flex items-center justify-center rounded-full hover:bg-ink-100/50 transition-colors">
+          <button className="relative w-10 h-10 flex items-center justify-center rounded-full hover:bg-ink-100/50 transition-colors" aria-label="Notifications">
             <Bell className="w-5 h-5 text-ink-500" strokeWidth={1.5} />
-            <div className="absolute top-2 right-2 w-2 h-2 rounded-full bg-gold-600" />
+            <div className="absolute top-2 right-2 w-2 h-2 rounded-full bg-gold-600 ring-2 ring-ivory-50" />
           </button>
         }
       />
@@ -66,7 +72,10 @@ export default function HomePage() {
         <div className="flex flex-col gap-8 lg:col-span-7 xl:col-span-8">
           {/* Greeting */}
           <motion.div variants={fadeUp} className="space-y-1 mt-2">
-            <h1 className="text-display-m text-ink-900">Assalamu Alaykum 👋</h1>
+            <div className="flex items-center gap-2">
+              <h1 className="text-display-m text-ink-900">Assalamu Alaykum</h1>
+              <Sparkles className="w-5 h-5 text-gold-500" strokeWidth={1.5} />
+            </div>
             <HijriDate className="text-body text-ink-400" />
           </motion.div>
 
@@ -77,7 +86,7 @@ export default function HomePage() {
               <OrbitWidget />
             </motion.div>
 
-            <div className="flex flex-col gap-8 flex-1">
+            <div className="flex flex-col gap-6 flex-1">
               {/* Prayer time row */}
               <motion.div variants={fadeUp}>
                 <PrayerTimeRow />
@@ -85,15 +94,20 @@ export default function HomePage() {
 
               {/* Trust stats */}
               <motion.div variants={fadeUp} className="grid grid-cols-3 gap-3">
-                {[
-                  { label: 'Ans d\'expérience', value: '10+' },
-                  { label: 'Pèlerins accompagnés', value: '1 000+' },
-                  { label: 'Avis Google', value: '4.9★' },
-                ].map((stat) => (
-                  <div key={stat.label} className="flex flex-col items-center justify-center gap-1 rounded-2xl bg-white p-4 shadow-card hover:shadow-float transition-shadow h-full">
-                    <span className="text-h1 text-beige-900">{stat.value}</span>
-                    <span className="text-[10px] text-ink-400 text-center font-medium leading-tight">{stat.label}</span>
-                  </div>
+                {trustStats.map((stat) => (
+                  <motion.div
+                    key={stat.label}
+                    whileHover={{ y: -3 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                    className={`flex flex-col items-center justify-center gap-1.5 rounded-2xl p-4 shadow-card hover:shadow-float transition-shadow h-full ${
+                      stat.accent
+                        ? 'bg-beige-900 text-gold-300'
+                        : 'bg-white'
+                    }`}
+                  >
+                    <span className={`text-h1 tabular ${stat.accent ? 'text-gold-300' : 'text-beige-900'}`}>{stat.value}</span>
+                    <span className={`text-[10px] text-center font-medium leading-tight ${stat.accent ? 'text-gold-300/70' : 'text-ink-400'}`}>{stat.label}</span>
+                  </motion.div>
                 ))}
               </motion.div>
             </div>

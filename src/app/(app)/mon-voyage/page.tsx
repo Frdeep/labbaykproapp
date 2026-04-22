@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase-browser';
 import { ScreenHeader } from '@/components/layout/screen-header';
 import { Button } from '@/components/ui/button';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { Plane, FileCheck, Phone, CheckSquare, MapPin } from 'lucide-react';
 import { DocumentUploadCard } from '@/components/common/document-upload-card';
 import Link from 'next/link';

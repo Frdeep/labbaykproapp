@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { Upload, CheckCircle2, AlertCircle, File, Loader2 } from 'lucide-react';
 import { createClient } from '@/lib/supabase-browser';
 import type { DocType } from '@/types/document';

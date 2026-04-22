@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { ScreenHeader } from '@/components/layout/screen-header';
 import { RitualCounter } from '@/components/ritual/ritual-counter';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 
 const rituals = [
   { name: 'Ihram', nameAr: 'الإحرام', description: 'Entrez en état de sacralisation', href: '#ihram' },

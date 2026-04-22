@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { ScreenHeader } from '@/components/layout/screen-header';
 import { Input } from '@/components/ui/input';
 import { Search, Play, Pause, BookOpen, Volume2, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { getAudioUrl } from '@/lib/integrations/quran-api';
 
 const imams = [

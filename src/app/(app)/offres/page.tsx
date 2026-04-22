@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { createClient } from '@/lib/supabase-browser';
 import { FormuleCard } from '@/components/formule/formule-card';
 import { ScreenHeader } from '@/components/layout/screen-header';
@@ -109,7 +109,7 @@ export default function OffresPage() {
                 >
                   <Link href={`/offres/${formule.id}`}>
                     <FormuleCard
-                      imageSrc={`https://placehold.co/240x260/0A3B2B/C9A961?text=${encodeURIComponent(formule.title.split(' ')[1] || 'Omra')}`}
+                      imageSrc={`/images/omra-ramadan.jpg`}
                       title={formule.title}
                       subtitle={formule.subtitle ?? undefined}
                       price={formule.price_quad ? `${formule.price_quad.toLocaleString('fr-FR')} €` : undefined}

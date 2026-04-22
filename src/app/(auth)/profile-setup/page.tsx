@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase-browser';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { User, Phone, Globe } from 'lucide-react';
 
 export default function ProfileSetupPage() {

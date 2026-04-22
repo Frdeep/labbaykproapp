@@ -1,5 +1,5 @@
 import * as React from "react"
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import { cn } from "@/lib/utils"
 
 interface DestinationCardProps {
@@ -13,13 +13,14 @@ interface DestinationCardProps {
 export function DestinationCard({ 
   imageSrc, 
   title, 
-  pricePrefix = "From", 
+  pricePrefix = "À partir de", 
   price, 
   className 
 }: DestinationCardProps) {
   return (
     <motion.div 
-      whileHover={{ y: -4 }}
+      whileHover={{ y: -6, boxShadow: '0 16px 40px rgba(10,14,12,0.10)' }}
+      whileTap={{ scale: 0.98 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
       className={cn(
         "flex flex-col bg-white rounded-3xl overflow-hidden shadow-card cursor-pointer group",
@@ -27,27 +28,30 @@ export function DestinationCard({
         className
       )}
     >
-      {/* Top half: Image taking approx 1.2 aspect ratio */}
-      <div className="w-full h-[180px] bg-ink-100 overflow-hidden relative">
-        {/* Placeholder if no real src in dev, otherwise next/image */}
+      {/* Image with 4:5 ratio */}
+      <div className="w-full aspect-[4/5] bg-ink-100 overflow-hidden relative">
         <img 
           src={imageSrc} 
           alt={title} 
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-cover group-hover:scale-[1.06] transition-transform duration-700 ease-out"
+          loading="lazy"
         />
         
-        {/* Optional inner top shadow/glow like the reference */}
-        <div className="absolute top-0 left-0 w-full h-12 bg-gradient-to-b from-black/10 to-transparent pointer-events-none" />
+        {/* Premium top gradient vignette */}
+        <div className="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-black/15 to-transparent pointer-events-none" />
+        {/* Bottom gradient for text readability */}
+        <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
       </div>
 
-      {/* Bottom half: Text area */}
-      <div className="p-4 flex flex-col gap-1">
+      {/* Text area */}
+      <div className="p-4 flex flex-col gap-1.5">
         <h3 className="font-serif text-[15px] font-medium text-ink-900 leading-snug line-clamp-2">
           {title}
         </h3>
-        <p className="text-gold-600 text-[13px] font-medium mt-1">
-          <span className="text-gold-600/70">{pricePrefix}</span> {price}
-        </p>
+        <div className="flex items-baseline gap-1">
+          <span className="text-[11px] text-gold-600/60">{pricePrefix}</span>
+          <span className="text-[15px] font-semibold text-gold-600 tabular">{price}</span>
+        </div>
       </div>
     </motion.div>
   )

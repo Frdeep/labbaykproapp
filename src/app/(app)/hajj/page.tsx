@@ -1,7 +1,7 @@
 'use client';
 
 import { ScreenHeader } from '@/components/layout/screen-header';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 
 const hajjDays = [
   { day: 8, name: 'Jour de Tarwiya', nameAr: 'يوم التروية', location: 'Mina', steps: ['Ihram depuis La Mecque', 'Départ vers Mina', '5 prières à Mina (raccourcies)'] },

@@ -2,7 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useEffect, Suspense, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, Check, Upload, FileCheck, Shield, CalendarClock, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useBookingStore } from '@/features/reservation/use-booking-store';

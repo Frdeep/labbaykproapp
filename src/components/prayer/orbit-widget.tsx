@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { Sun, Moon, Sunrise, Sunset, CloudSun } from 'lucide-react';
 
 // Prayer data type

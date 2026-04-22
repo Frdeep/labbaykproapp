@@ -4,7 +4,7 @@ import { useActionState } from 'react';
 import { resetPassword, type AuthState } from '@/app/actions/auth';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { Mail, ArrowLeft, CheckCircle } from 'lucide-react';
 import Link from 'next/link';
 

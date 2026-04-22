@@ -2,7 +2,7 @@
 
 import { ScreenHeader } from '@/components/layout/screen-header';
 import { Input } from '@/components/ui/input';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { Search, BookOpen, Compass, Moon, MapPin, Heart, Star, Tent, Mountain, Coffee } from 'lucide-react';
 import { useState } from 'react';
 import Link from 'next/link';

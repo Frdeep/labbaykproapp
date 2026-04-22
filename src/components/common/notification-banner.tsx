@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { Bell, X } from 'lucide-react';
 import { usePushNotifications } from '@/hooks/use-push-notifications';
 
