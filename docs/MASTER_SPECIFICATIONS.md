@@ -1,94 +1,111 @@
-# 📖 Labbayk Premium App — MASTER SPECIFICATIONS & PLAN
+# 📖 LABBAYK APP — LA BIBLE DU PROJET (V3)
 
-> **Document de Référence Ultime**  
-> Ce document sert de "cerveau externe". Il contient absolument toutes les instructions, sprints, et spécifications de l'application Labbayk. Il est conçu pour qu'**aucun contexte ne soit perdu** lors d'un changement d'agent IA ou de compte.
-
----
-
-## 1. Vision et Objectifs
-**Labbayk** est l'application mobile-first (PWA) de l'agence Labbayk Voyages. 
-L'objectif est d'offrir une expérience digitale *premium* et fluide pour l'accompagnement au pèlerinage (Hajj & Omra).
-
-**Règles absolues (définies par le client) :**
-- Le Backend (Supabase) et Frontend (Next.js/React) actuels sont stables et doivent être conservés.
-- Le Design sera refait/amélioré lors d'une prochaine phase, mais la base actuelle "Art Deco Zen" (Ivoire, Emeraude, Or) reste le socle.
-- Aucune image du dossier `/public/images/` ne doit être supprimée.
+> **Document de Référence Ultime & Immuable**  
+> Ce document fusionne l'architecture technique actuelle avec le "Brouillon Maître" fondateur du client. Il contient toutes les règles absolues, la structure de la base de données, la copie textuelle stricte, et la planification des sprints. **Tout agent IA doit lire ce fichier avant de coder.**
 
 ---
 
-## 2. Rétrospective et Planification (Sprint 1 à 9)
+## 1. CONTEXTE PRODUIT & RÈGLES VERROUILLÉES
 
-Voici le plan complet de tout ce qui a été construit et qui définit l'application.
-
-### ✅ SPRINT 1 : Bootstrap & Fondations
-- **Stack** : Next.js 16 (App Router), React 19, Tailwind CSS v4.
-- **Dépendances clés** : `motion/react` (animations), `zustand` (state), `lucide-react` (icônes), `react-hook-form` + `zod` (formulaires).
-- **Structure** : Dossiers `(auth)` pour les visiteurs, et `(app)` pour les utilisateurs connectés.
-
-### ✅ SPRINT 2 : Design System ("Art Deco Zen")
-- **Palette "Royal"** : Fonds Ivoire (`#FDFBF7`), Textes Encre, Accents Or (`#C9A961`).
-- **Typographie** : Fraunces (Titres sérif élégants) et Inter (Corps de texte lisible).
-- **Rituels** : Un "Dark Mode" contextuel immersif dédié aux écrans de Tawaf et Sa'i.
-
-### ✅ SPRINT 3 : Backend & Supabase
-- **Authentification** : Gestion des sessions via `supabase-server` et middleware.
-- **Base de données (PostgreSQL)** :
-  1. `profiles` : Données utilisateurs (nom, prénom, téléphone).
-  2. `formules` : Catalogue des voyages (Hajj, Omra Ramadan, etc.).
-  3. `bookings` : Réservations avec statuts.
-  4. `documents` : Upload de passeports/visas sécurisé via RLS.
-
-### ✅ SPRINT 4 : UI Kit Premium
-- **Composants** : `Button`, `Input`, `ActionSquare`, `DestinationCard`, `BottomTabBar`.
-- **Animations** : Utilisation intensive des transitions `spring` (Framer Motion v12) pour un ressenti "app native iOS".
-
-### ✅ SPRINT 5 : Les 10 Features Cores
-1. **Accueil** : Dashboard avec horloge de prière orbitale, météo, stats agence.
-2. **Catalogue** : Liste filtrable des formules avec pastilles d'état (Dernières places, Complet).
-3. **Guide Spirituel** : Hub d'informations en format "Bento Grid".
-4. **Coran Audio** : Lecteur intégré avec 5 récitateurs, API `EveryAyah`, mini-player flottant.
-5. **Chat IA** : Assistant virtuel connecté à Claude (Anthropic).
-6. **Rituels (Tawaf/Sa'i)** : Compteurs haptiques animés en mode sombre.
-7. **Mon Voyage** : Suivi du séjour, décompte avant départ, urgences.
-8. **Profil** : Paramètres et déconnexion.
-
-### ✅ SPRINT 6 & 7 : PWA & Déploiement
-- **PWA** : Configuration `manifest.json` pour installation sur écran d'accueil mobile.
-- **Paiements (Annulés)** : L'intégration Stripe a été testée puis retirée à la demande du client.
-
-### ✅ SPRINT 8 : Réservation sur Mesure
-- Remplacement du paiement par un **système de prise de rendez-vous / calendrier**.
-
-### ✅ SPRINT 9 : Tunnel de Réservation 5 Étapes
-- Le "Booking Flow" a été totalement structuré via Zustand :
-  1. Choix chambre/formule.
-  2. Informations voyageurs.
-  3. **Demande de Visa & Upload Documents (Passeport)**.
-  4. Récapitulatif.
-  5. Confirmation finale.
+- **Identité** : Labbayk Voyages (17 rue Le Bua, 75020 Paris). Agréée par le consulat d'Arabie Saoudite.
+- **Règle n°1 (ZÉRO VERT)** : La palette "Art Deco Zen" est stricte. Ivoire (fond), Or cuivré (accent), Encre (texte). Interdiction absolue d'utiliser du vert (sauf pour un feedback de succès).
+- **Règle n°2 (Paiement 100% Hors-Ligne)** : L'application gère des *pré-réservations*. Pas d'intégration Stripe. Le client valide son dossier, puis l'agence le rappelle sous 24h.
+- **Règle n°3 (Copywriting Strict)** : Le texte "Labbayk Allahuma Labbayk" et l'intro ("Chez Labbayk, nous croyons...") ne doivent jamais être réécrits.
+- **Règle n°4 (Rareté vs Chiffres)** : Utiliser "Dernières places" et non pas "4 places restantes".
+- **Règle n°5 (Auth Obligatoire)** : Pas de checkout invité. Auth Supabase obligatoire avant de réserver.
 
 ---
 
-## 3. Notes sur les Maquettes (Photos du Client)
+## 2. ARCHITECTURE TECHNIQUE
 
-> **IMPORTANT POUR L'IA :** Lors des premières sessions, le client a fourni plusieurs photos/captures d'écran avec des instructions visuelles et fonctionnelles précises (inspirées de Nusuk et d'applications premium).
+- **Frontend** : Next.js 16 (App Router) + React 19 + TypeScript.
+- **Styles** : Tailwind CSS v4 avec `@theme` + Variables CSS (pas de CSS-in-JS).
+- **UI** : Shadcn/ui (fortement customisé).
+- **Animations** : Motion v12 (Framer Motion).
+- **State** : Zustand (tunnel de réservation) + React Hook Form + Zod.
+- **Backend** : Supabase (PostgreSQL, Auth, Storage, Edge Functions).
+- **PWA/Mobile** : Capacitor 6 pour export iOS/Android natif.
 
-**Ce qui a été extrait et implémenté à partir de ces photos :**
-- L'esthétique "Split-screen" sur desktop pour le login.
-- L'utilisation de cartes avec des coins très arrondis (`rounded-3xl`) et des ombres douces.
-- Le carrousel d'images en arrière-plan avec le texte qui se superpose (glassmorphism).
-- La barre de navigation basse (Bottom Tab Bar) type iOS avec un indicateur actif animé.
-- L'horloge orbitale pour les prières.
+---
+
+## 3. STRUCTURE DE LA BASE DE DONNÉES (Supabase)
+
+Toutes les tables sont sécurisées via RLS (Row Level Security).
+1. `profiles` : Données clients (id, email, phone, civility, passport_type).
+2. `formules` : Le catalogue. 19 offres Omra (Standard, Vacances, Ramadan) et Hajj.
+3. `bookings` : Les réservations (status: draft, pending_contact, confirmed).
+4. `documents` : Fichiers uploadés (passeport, selfie). Lié au Storage bucket `user-documents`.
+5. `chat_messages` : Historique du Chat IA Anthropic.
+6. `coran_imams` & `coran_user_activity` : 5 récitateurs (Alafasy, Sudais, Shuraim, Muaiqly, Husary) et suivi d'écoute.
+7. `guide_contents` : Contenu éditorial (Invocations, Pèlerinage, Prière).
 
 ---
 
-## 4. Prochaines Étapes (Futures Refontes)
+## 4. DÉTAILS DES OFFRES (LES FORMULES)
 
-Conformément aux instructions :
-1. **Le Backend et le Frontend restent intacts** pour garantir la stabilité fonctionnelle.
-2. **Le Design sera refondu plus tard** (probablement via l'intégration poussée de nouveaux composants 21st.dev et UI/UX Pro Max).
-3. **Traductions** : Activer `next-intl` (actuellement en attente).
-4. **Mails** : Configurer un fournisseur d'emails sur Supabase pour la confirmation d'inscription.
+- **Standard / Vacances** : Omra de 8 à 9 jours. Prix de référence Quadruple ~1490€ à 1790€. Hôtels : Voco Makkah & Assafaa Médine.
+- **Ramadan** : Séjours de 10 à 16 jours. Prix plus élevés (ex: 2590€ pour la fin du Ramadan). Hôtels : Taj Park Makkah & Assafaa Médine. Sans petit-déjeuner.
+- **Hajj 2026** : Formules Confort (10500€) et Standard (9000€). Affichées en mode "Information" uniquement. Pas de réservation directe, formulaire de contact dédié.
+- **Inclus par défaut** : Vol (Saudia/Aegean), Transferts, Visa (passeport UE), Hôtels, Guide.
+- **Non inclus** : Dépenses perso, assurance, vaccins.
+- **Règle Visa** : +150€ si passeport non européen.
 
 ---
-*Ce document est versionné dans Git. Tout agent IA prenant le relais doit impérativement le lire.*
+
+## 5. BLUEPRINT UX/UI SECTION PAR SECTION (Pour la Refonte Native-Like)
+
+### A. Auth & Onboarding (`/splash`, `/login`, `/signup`)
+- **Desktop** : Split-screen (Image 50% / Form 50%).
+- **Mobile** : Slider d'images plein écran (Ken Burns) + Bottom Sheet (Tiroir glissant du bas) pour le formulaire.
+- **Profile Setup** : Civilité (Frère/Sœur), Nom, Nationalité, Type de passeport.
+
+### B. Accueil (`/`)
+- Widget `PrayerOrbitWidget` : Horloge SVG avec le soleil tournant selon l'heure de la prière.
+- Carrousel "Nos prochains départs" (Scroll horizontal `snap-mandatory`).
+- Grille Bento pour l'accès rapide (Guide, Coran, Chat).
+- Date Hijri.
+
+### C. Catalogue & Offres (`/offres`)
+- Filtres Sticky en haut (Omra, Ramadan, Vacances).
+- `FormuleCard` : Affiche les 3 prix (Quad, Triple, Double). Quad mis en avant. Pastilles "Dernières places", "Complet". Hôtels sous forme de logos/miniatures.
+- Détails de l'offre : En-tête Parallax (l'image de l'hôtel zoome au pull-to-refresh). 5 onglets (Aperçu, Programme, Hôtels, Inclus, Docs). Bouton "Réserver" sticky en bas.
+
+### D. Tunnel de Réservation (`/reserver/[id]`)
+Processus en 5 étapes via Zustand :
+1. **Récapitulatif** (Étape 0).
+2. **Voyageurs** (Noms/Prénoms).
+3. **Chambre & Options**.
+4. **Documents** : La "Gate" critique. Upload Passeport (vérifié par OCR Tesseract.js) + Selfie.
+5. **Confirmation** : Déclenche l'insertion en BDD, la notification Resend à l'agence, et génère le numéro de dossier `LBK-YYYY-XXXXX`.
+
+### E. Guide & Rituels (`/guide`)
+- Hub principal en Bento Grid.
+- **Rituels (Tawaf / Sa'i)** : Mode sombre intégral (Immersive Dark Mode) pour économiser la batterie. Compteurs interactifs qui déclenchent une vibration haptique.
+- Textes éditoriaux stricts (pratique majoritaire).
+
+### F. Coran Audio (`/guide/coran`)
+- Interface type Spotify. 
+- API `EveryAyah.com` et `Quran.com`.
+- Mini-player flottant ancré au-dessus de la Bottom Tab Bar pour écoute continue pendant la navigation.
+
+### G. Chat IA Labbayk (`/chat`)
+- Interface type iMessage.
+- Alimenté par Anthropic (Claude 3.5).
+- Contraint par un "System Prompt" strict : Pas de fatwas, pas de politique, pas de diagnostic médical. S'il ne sait pas, il propose d'appeler l'agence.
+
+### H. Mon Voyage (`/mon-voyage`)
+- Tableau de bord post-réservation.
+- Compte à rebours avant le départ.
+- Modules : Itinéraire, Hébergement, Vol, Contacts d'urgence.
+
+---
+
+## 6. TEXTES & COPYWRITING (Ne pas altérer)
+
+- **Intro** : "Chez Labbayk, nous croyons que le pèlerinage est plus qu'un simple voyage..."
+- **Documents requis** : "Passeport (valide +6 mois), Photo selfie (fond blanc, hijab pour les sœurs), Carte de séjour (si passeport étranger)."
+- **Visa** : "Labbayk – Votre partenaire agréé pour le visa d'Arabie saoudite."
+
+---
+
+*Ce document est la source de vérité. Toute future refonte ou modification du code doit respecter ces principes à la lettre.*
