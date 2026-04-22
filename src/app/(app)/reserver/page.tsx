@@ -42,7 +42,11 @@ function ReserverContent() {
         const t = store.travelers[0];
         return t?.first_name?.trim() && t?.last_name?.trim();
       }
-      case 2: return store.documentsUploaded;
+      case 2: {
+        if (!store.documentsUploaded) return false;
+        if (store.visaRequested && !store.visaDocumentsUploaded) return false;
+        return true;
+      }
       case 3: return !!store.appointmentDate;
       default: return true;
     }
@@ -53,7 +57,11 @@ function ReserverContent() {
     switch (store.step) {
       case 0: return 'Continuer';
       case 1: return 'Continuer';
-      case 2: return store.documentsUploaded ? 'Documents validés — Continuer' : 'Veuillez charger vos documents';
+      case 2: {
+        if (!store.documentsUploaded) return 'Veuillez charger votre passeport';
+        if (store.visaRequested && !store.visaDocumentsUploaded) return 'Veuillez charger la photo visa';
+        return 'Dossier complet — Continuer';
+      }
       case 3: return 'Confirmer le Rendez-vous';
       default: return 'Continuer';
     }
@@ -262,23 +270,37 @@ function StepTravelers() {
   );
 }
 
-/* ─────────────── STEP 2 — Documents ─────────────── */
+/* ─────────────── STEP 2 — Documents & Visa ─────────────── */
 function StepDocuments() {
-  const { documentsUploaded, setDocumentsUploaded } = useBookingStore();
-  const [uploadState, setUploadState] = useState<'idle' | 'uploading' | 'success'>( documentsUploaded ? 'success' : 'idle');
+  const { documentsUploaded, setDocumentsUploaded, visaRequested, setVisaRequested, visaDocumentsUploaded, setVisaDocumentsUploaded } = useBookingStore();
+  const [passportState, setPassportState] = useState<'idle' | 'uploading' | 'success'>(documentsUploaded ? 'success' : 'idle');
+  const [visaState, setVisaState] = useState<'idle' | 'uploading' | 'success'>(visaDocumentsUploaded ? 'success' : 'idle');
 
-  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function handlePassportChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
     if (file.size > 10 * 1024 * 1024) {
       alert('La taille maximale est de 10 Mo.');
       return;
     }
-    // Simulate upload for now (real upload already handled via DocumentUploadCard on mon-voyage page)
-    setUploadState('uploading');
+    setPassportState('uploading');
     setTimeout(() => {
-      setUploadState('success');
+      setPassportState('success');
       setDocumentsUploaded(true);
+    }, 1500);
+  }
+
+  function handleVisaChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 10 * 1024 * 1024) {
+      alert('La taille maximale est de 10 Mo.');
+      return;
+    }
+    setVisaState('uploading');
+    setTimeout(() => {
+      setVisaState('success');
+      setVisaDocumentsUploaded(true);
     }, 1500);
   }
 
@@ -287,7 +309,7 @@ function StepDocuments() {
       <div>
         <h2 className="text-h2 text-ink-900">Pièces justificatives</h2>
         <p className="text-micro text-ink-400 mt-1">
-          Afin de constituer votre dossier, veuillez charger une copie de votre passeport (double page).
+          Afin de constituer votre dossier, veuillez fournir les documents requis.
         </p>
       </div>
 
@@ -295,23 +317,48 @@ function StepDocuments() {
       <div className="flex items-start gap-3 p-4 bg-beige-900/5 rounded-2xl">
         <Shield className="w-5 h-5 text-beige-900 mt-0.5 shrink-0" />
         <p className="text-micro text-ink-500 leading-relaxed">
-          Vos documents sont chiffrés et stockés de manière sécurisée. Ils ne sont accessibles que par l&apos;équipe Labbayk pour la constitution de votre dossier de visa.
+          Vos documents sont chiffrés et stockés de manière sécurisée. Ils ne sont accessibles que par l&apos;équipe Labbayk.
         </p>
       </div>
 
-      {/* Upload Zone */}
-      <div className="space-y-4">
+      <div className="space-y-6">
+        {/* Visa Toggle */}
+        <div className="bg-white rounded-[32px] p-5 shadow-card border border-ink-100 flex flex-col gap-3">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-body font-semibold text-ink-900">Demande de Visa</h3>
+              <p className="text-[11px] text-ink-400">Avez-vous besoin d&apos;un visa touristique pour l&apos;Arabie Saoudite ?</p>
+            </div>
+            <div className="flex items-center bg-ink-100/50 rounded-full p-1">
+              <button
+                onClick={() => setVisaRequested(true)}
+                className={`px-4 py-1.5 rounded-full text-[13px] font-medium transition-colors ${visaRequested ? 'bg-white shadow-float text-beige-900' : 'text-ink-500'}`}
+              >
+                Oui
+              </button>
+              <button
+                onClick={() => {
+                  setVisaRequested(false);
+                  setVisaDocumentsUploaded(false);
+                  setVisaState('idle');
+                }}
+                className={`px-4 py-1.5 rounded-full text-[13px] font-medium transition-colors ${!visaRequested ? 'bg-white shadow-float text-ink-900' : 'text-ink-500'}`}
+              >
+                Non
+              </button>
+            </div>
+          </div>
+        </div>
+
         {/* Passport Upload */}
-        <div className="bg-white rounded-2xl p-5 shadow-card">
+        <div className="bg-white rounded-[32px] p-5 shadow-card border border-ink-100">
           <div className="flex items-center gap-3 mb-4">
             <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-              uploadState === 'success'
-                ? 'bg-state-success/10'
-                : 'bg-ink-100'
+              passportState === 'success' ? 'bg-state-success/10' : 'bg-ink-100'
             }`}>
-              {uploadState === 'success' ? (
+              {passportState === 'success' ? (
                 <FileCheck className="w-5 h-5 text-state-success" />
-              ) : uploadState === 'uploading' ? (
+              ) : passportState === 'uploading' ? (
                 <Loader2 className="w-5 h-5 text-beige-900 animate-spin" />
               ) : (
                 <Upload className="w-5 h-5 text-ink-500" />
@@ -319,11 +366,11 @@ function StepDocuments() {
             </div>
             <div className="flex-1">
               <h3 className="text-body font-semibold text-ink-900">Passeport</h3>
-              <p className="text-[11px] text-ink-400">Double page — JPG, PNG ou PDF</p>
+              <p className="text-[11px] text-ink-400">Double page — Valide +6 mois (JPG, PDF)</p>
             </div>
           </div>
 
-          {uploadState === 'uploading' ? (
+          {passportState === 'uploading' ? (
             <div className="space-y-2">
               <div className="flex items-center justify-between text-[11px] text-ink-500 font-medium">
                 <span className="flex items-center gap-1">
@@ -339,17 +386,17 @@ function StepDocuments() {
                 />
               </div>
             </div>
-          ) : uploadState === 'success' ? (
+          ) : passportState === 'success' ? (
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               className="flex items-center justify-between py-2.5 px-4 bg-state-success/10 rounded-xl"
             >
               <span className="text-[13px] text-state-success font-medium flex items-center gap-1.5">
-                <Check className="w-4 h-4" /> Document reçu ✓
+                <Check className="w-4 h-4" /> Passeport reçu ✓
               </span>
               <button
-                onClick={() => { setUploadState('idle'); setDocumentsUploaded(false); }}
+                onClick={() => { setPassportState('idle'); setDocumentsUploaded(false); }}
                 className="text-[11px] text-state-success underline hover:opacity-80 transition-opacity"
               >
                 Modifier
@@ -362,17 +409,82 @@ function StepDocuments() {
               </div>
               <div className="text-center">
                 <span className="text-body font-medium text-ink-700 block">Choisir un fichier</span>
-                <span className="text-micro text-ink-400">ou glissez-déposez ici</span>
               </div>
-              <input
-                type="file"
-                accept="image/*,.pdf"
-                className="hidden"
-                onChange={handleFileChange}
-              />
+              <input type="file" accept="image/*,.pdf" className="hidden" onChange={handlePassportChange} />
             </label>
           )}
         </div>
+
+        {/* Visa Document Upload (Only if requested) */}
+        {visaRequested && (
+          <motion.div 
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            className="bg-white rounded-[32px] p-5 shadow-card border border-ink-100"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                visaState === 'success' ? 'bg-state-success/10' : 'bg-ink-100'
+              }`}>
+                {visaState === 'success' ? (
+                  <FileCheck className="w-5 h-5 text-state-success" />
+                ) : visaState === 'uploading' ? (
+                  <Loader2 className="w-5 h-5 text-beige-900 animate-spin" />
+                ) : (
+                  <Upload className="w-5 h-5 text-ink-500" />
+                )}
+              </div>
+              <div className="flex-1">
+                <h3 className="text-body font-semibold text-ink-900">Photo d&apos;identité (Visa)</h3>
+                <p className="text-[11px] text-ink-400">Fond blanc, sans lunettes (JPG, PNG)</p>
+              </div>
+            </div>
+
+            {visaState === 'uploading' ? (
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-[11px] text-ink-500 font-medium">
+                  <span className="flex items-center gap-1">
+                    <Loader2 className="w-3 h-3 animate-spin" /> Transfert en cours...
+                  </span>
+                </div>
+                <div className="h-1.5 w-full bg-ink-100 rounded-full overflow-hidden">
+                  <motion.div
+                    className="h-full bg-beige-900 rounded-full"
+                    initial={{ width: '10%' }}
+                    animate={{ width: '90%' }}
+                    transition={{ duration: 1.2 }}
+                  />
+                </div>
+              </div>
+            ) : visaState === 'success' ? (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex items-center justify-between py-2.5 px-4 bg-state-success/10 rounded-xl"
+              >
+                <span className="text-[13px] text-state-success font-medium flex items-center gap-1.5">
+                  <Check className="w-4 h-4" /> Photo reçue ✓
+                </span>
+                <button
+                  onClick={() => { setVisaState('idle'); setVisaDocumentsUploaded(false); }}
+                  className="text-[11px] text-state-success underline hover:opacity-80 transition-opacity"
+                >
+                  Modifier
+                </button>
+              </motion.div>
+            ) : (
+              <label className="flex flex-col items-center justify-center gap-3 py-8 border-2 border-dashed border-ink-200 rounded-2xl hover:bg-ink-50 hover:border-beige-900/30 transition-all cursor-pointer active:scale-[0.98]">
+                <div className="w-12 h-12 rounded-full bg-beige-900/10 flex items-center justify-center">
+                  <Upload className="w-5 h-5 text-beige-900" />
+                </div>
+                <div className="text-center">
+                  <span className="text-body font-medium text-ink-700 block">Choisir un fichier</span>
+                </div>
+                <input type="file" accept="image/*" className="hidden" onChange={handleVisaChange} />
+              </label>
+            )}
+          </motion.div>
+        )}
       </div>
     </div>
   );

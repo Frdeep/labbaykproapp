@@ -62,13 +62,13 @@ export default function OffresPage() {
         </div>
 
         {/* Category tabs */}
-        <div className="flex gap-2 overflow-x-auto pb-1 -mx-5 px-5 scrollbar-none">
+        <div className="flex gap-2 overflow-x-auto pb-1 -mx-5 px-5 snap-x snap-mandatory scrollbar-none">
           {categories.map((cat) => (
             <button
               key={cat.key}
               onClick={() => setFilter(cat.key)}
               className={`
-                px-4 py-2 rounded-pill text-[13px] font-medium whitespace-nowrap transition-all duration-300
+                px-4 py-2 rounded-full text-[13px] font-medium whitespace-nowrap transition-all duration-300 snap-start shrink-0
                 ${filter === cat.key
                   ? 'bg-beige-900 text-gold-300 shadow-card'
                   : 'bg-white text-ink-500 hover:bg-ink-100/50 border border-ink-100'

@@ -213,3 +213,17 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ─── Scrollbar Hide (for swipe containers) ────────── */
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* ─── Tap Highlight (mobile) ───────────────────────── */
+.tap-highlight-transparent {
+  -webkit-tap-highlight-color: transparent;
+}

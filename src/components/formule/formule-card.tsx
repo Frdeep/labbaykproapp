@@ -40,19 +40,19 @@ export function FormuleCard({
       whileHover={{ y: -4 }}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
       className={cn(
-        'flex bg-white rounded-2xl overflow-hidden shadow-card cursor-pointer group',
+        'flex bg-white rounded-[24px] overflow-hidden shadow-card cursor-pointer group border border-ink-100/30',
         className
       )}
     >
       {/* Left: Image */}
-      <div className="w-[120px] min-h-[130px] bg-ink-100 overflow-hidden relative flex-shrink-0">
+      <div className="w-[120px] min-h-[130px] bg-ink-100 overflow-hidden relative flex-shrink-0 rounded-l-[24px]">
         <img
           src={imageSrc}
           alt={title}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
         {/* Status pill overlay */}
-        <div className="absolute top-2 left-2">
+        <div className="absolute top-2.5 left-2.5">
           <StatusPill tone={statusConfig[status].tone}>{statusConfig[status].label}</StatusPill>
         </div>
       </div>

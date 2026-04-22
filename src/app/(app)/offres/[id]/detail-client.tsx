@@ -64,25 +64,25 @@ export function FormuleDetailClient({ formule }: FormuleDetailClientProps) {
       </div>
 
       {/* Content */}
-      <div className="flex-1 px-5 py-6 flex flex-col gap-6 -mt-4 bg-ivory-50 rounded-t-3xl relative">
-        {/* Key info pills */}
-        <div className="flex flex-wrap gap-2">
+      <div className="flex-1 px-5 py-6 flex flex-col gap-6 -mt-4 bg-ivory-50 rounded-t-[32px] relative">
+        {/* Key info pills — horizontal scroll snap */}
+        <div className="flex gap-2 overflow-x-auto pb-1 -mx-5 px-5 snap-x snap-mandatory scrollbar-none">
           <InfoChip icon={<Calendar className="w-4 h-4" />} label={`${new Date(f.start_date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })} — ${new Date(f.end_date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' })}`} />
           <InfoChip icon={<Clock className="w-4 h-4" />} label={`${f.duration_days}j / ${f.duration_nights}n`} />
           <InfoChip icon={<Plane className="w-4 h-4" />} label={`${f.airline} · ${f.route_from} → ${f.route_to}`} />
           <InfoChip icon={<Luggage className="w-4 h-4" />} label={`${f.baggage_checked_kg}kg soute + ${f.baggage_cabin_kg}kg cabine`} />
         </div>
 
-        {/* Hotels */}
+        {/* Hotels — Bento Grid */}
         <section>
           <h2 className="text-caption text-ink-400 mb-3">HÉBERGEMENT</h2>
           <div className="grid grid-cols-2 gap-3">
-            <div className="bg-white rounded-xl p-4 shadow-card">
+            <div className="bg-white rounded-[24px] p-5 shadow-card border border-ink-100/30">
               <Hotel className="w-5 h-5 text-beige-900 mb-2" />
               <p className="text-micro text-ink-400">LA MECQUE</p>
               <p className="text-body font-semibold text-ink-900 mt-1">{f.hotel_makkah}</p>
             </div>
-            <div className="bg-white rounded-xl p-4 shadow-card">
+            <div className="bg-white rounded-[24px] p-5 shadow-card border border-ink-100/30">
               <Hotel className="w-5 h-5 text-beige-900 mb-2" />
               <p className="text-micro text-ink-400">MÉDINE</p>
               <p className="text-body font-semibold text-ink-900 mt-1">{f.hotel_medina}</p>
@@ -92,16 +92,16 @@ export function FormuleDetailClient({ formule }: FormuleDetailClientProps) {
             <div className="mt-4">
               <h3 className="text-[11px] font-bold tracking-wide text-ink-300 uppercase mb-2">Galerie — Hôtel Partenaire Voco</h3>
               <div className="grid grid-cols-2 gap-2">
-                <div className="h-24 rounded-lg overflow-hidden bg-ink-50">
+                <div className="h-24 rounded-[16px] overflow-hidden bg-ink-50">
                   <img src="/images/hotels/voco/voco-1.jpg" alt="Voco Reception" className="w-full h-full object-cover" />
                 </div>
-                <div className="h-24 rounded-lg overflow-hidden bg-ink-50">
+                <div className="h-24 rounded-[16px] overflow-hidden bg-ink-50">
                   <img src="/images/hotels/voco/voco-2.jpg" alt="Voco Breakfast" className="w-full h-full object-cover" />
                 </div>
-                <div className="h-24 rounded-lg overflow-hidden bg-ink-50">
+                <div className="h-24 rounded-[16px] overflow-hidden bg-ink-50">
                   <img src="/images/hotels/voco/voco-3.jpg" alt="Voco Room" className="w-full h-full object-cover" />
                 </div>
-                <div className="h-24 rounded-lg overflow-hidden bg-ink-50">
+                <div className="h-24 rounded-[16px] overflow-hidden bg-ink-50">
                   <img src="/images/hotels/voco/voco-4.jpg" alt="Voco Bathroom" className="w-full h-full object-cover" />
                 </div>
               </div>
@@ -111,13 +111,13 @@ export function FormuleDetailClient({ formule }: FormuleDetailClientProps) {
             <div className="mt-4">
               <h3 className="text-[11px] font-bold tracking-wide text-ink-300 uppercase mb-2">Galerie — Hôtel Assafaa</h3>
               <div className="grid grid-cols-2 gap-2">
-                <div className="h-24 rounded-lg overflow-hidden bg-ink-50">
+                <div className="h-24 rounded-[16px] overflow-hidden bg-ink-50">
                   <img src="/images/hotels/assafaa/assafaa-1.jpg" alt="Assafaa Room" className="w-full h-full object-cover" />
                 </div>
-                <div className="h-24 rounded-lg overflow-hidden bg-ink-50">
+                <div className="h-24 rounded-[16px] overflow-hidden bg-ink-50">
                   <img src="/images/hotels/assafaa/assafaa-2.jpg" alt="Assafaa Restaurant" className="w-full h-full object-cover" />
                 </div>
-                <div className="h-24 col-span-2 rounded-lg overflow-hidden bg-ink-50">
+                <div className="h-24 col-span-2 rounded-[16px] overflow-hidden bg-ink-50">
                   <img src="/images/hotels/assafaa/assafaa-3.jpg" alt="Assafaa Exterior" className="w-full h-full object-cover" />
                 </div>
               </div>
@@ -128,7 +128,7 @@ export function FormuleDetailClient({ formule }: FormuleDetailClientProps) {
         {/* Inclusions */}
         <section>
           <h2 className="text-caption text-ink-400 mb-3">INCLUSIONS</h2>
-          <div className="bg-white rounded-xl p-4 shadow-card space-y-3">
+          <div className="bg-white rounded-[24px] p-5 shadow-card border border-ink-100/30 space-y-3">
             <InclusionRow
               icon={<Utensils className="w-4 h-4" />}
               label="Petit-déjeuner"
@@ -183,7 +183,7 @@ export function FormuleDetailClient({ formule }: FormuleDetailClientProps) {
 
 function InfoChip({ icon, label }: { icon: React.ReactNode; label: string }) {
   return (
-    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-pill bg-white border border-ink-100 text-[12px] text-ink-500">
+    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-ink-100 text-[12px] text-ink-500 whitespace-nowrap snap-start shrink-0">
       <span className="text-beige-900">{icon}</span>
       {label}
     </div>

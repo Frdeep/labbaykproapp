@@ -8,6 +8,8 @@ interface BookingStore {
   travelers: TravelerInfo[];
   travelersCount: number;
   documentsUploaded: boolean;
+  visaRequested: boolean;
+  visaDocumentsUploaded: boolean;
   appointmentDate: string | null;
 
   userNotes: string;
@@ -18,6 +20,8 @@ interface BookingStore {
   setTravelersCount: (count: number) => void;
   updateTraveler: (index: number, data: Partial<TravelerInfo>) => void;
   setDocumentsUploaded: (uploaded: boolean) => void;
+  setVisaRequested: (requested: boolean) => void;
+  setVisaDocumentsUploaded: (uploaded: boolean) => void;
   setAppointmentDate: (date: string | null) => void;
 
   setUserNotes: (notes: string) => void;
@@ -41,6 +45,8 @@ export const useBookingStore = create<BookingStore>((set) => ({
   travelers: [{ ...defaultTraveler }],
   travelersCount: 1,
   documentsUploaded: false,
+  visaRequested: false,
+  visaDocumentsUploaded: false,
   appointmentDate: null,
 
   userNotes: '',
@@ -61,6 +67,8 @@ export const useBookingStore = create<BookingStore>((set) => ({
       return { travelers };
     }),
   setDocumentsUploaded: (uploaded) => set({ documentsUploaded: uploaded }),
+  setVisaRequested: (requested) => set({ visaRequested: requested }),
+  setVisaDocumentsUploaded: (uploaded) => set({ visaDocumentsUploaded: uploaded }),
   setAppointmentDate: (date) => set({ appointmentDate: date }),
 
   setUserNotes: (notes) => set({ userNotes: notes }),
@@ -73,6 +81,8 @@ export const useBookingStore = create<BookingStore>((set) => ({
       travelers: [{ ...defaultTraveler }],
       travelersCount: 1,
       documentsUploaded: false,
+      visaRequested: false,
+      visaDocumentsUploaded: false,
       appointmentDate: null,
 
       userNotes: '',
